@@ -1,0 +1,234 @@
+:root {
+  --font-family: Arial, sans-serif;
+  --base-variant: #e8e9ed;
+  --primary-color: #3a435d;
+  --background-color: #f4f4f9;
+  --container-background: #0075a3;
+  --input-background: #9de3ff;
+  --button-background: #386bf7;
+  --button-hover-background: #2151aa;
+  --text-color: black;
+  --error-color: #ff4d4d;
+  --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.darkmode {
+  --base-variant: #101425;
+  --primary-color: #3a435d;
+  --background-color: #070b1d;
+  --container-background: #3a435d;
+  --input-background: #070b1d;
+  --button-background: #386bf7;
+  --button-hover-background: #2151aa;
+  --error-color: #ff4d4d;
+  --text-color: white;
+  --box-shadow: 0 4px 10px rgba(238, 238, 238, 0.5);
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+  color: var(--text-color);
+  overflow-x: hidden;
+}
+
+#theme-switch {
+  height: 50px;
+  width: 50px;
+  padding: 0;
+  border-radius: 50%;
+  background-color: var(--base-variant);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 80px;
+  right: 20px;
+}
+
+#theme-switch svg {
+  fill: var(--primary-color);
+}
+
+#theme-switch svg:last-child {
+  display: none;
+}
+
+.darkmode #theme-switch svg:first-child {
+  display: none;
+}
+
+.darkmode #theme-switch svg:last-child {
+  display: block;
+}
+
+.navbar {
+  width: 100%;
+  background-color: var(--primary-color);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: flex-end; /* Align the items to the right */
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.navbar .left-side {
+  display: flex;
+  gap: 15px;
+  flex-grow: 1; /* Ensures the left side content grows and the button stays on the right */
+}
+
+.nav-btn {
+  background-color: var(--button-background);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.nav-btn:hover {
+  background-color: var(--button-hover-background);
+}
+
+.pin-container {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--container-background);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.pin-input-box h1 {
+  margin-bottom: 20px;
+}
+
+#pin-input {
+  padding: 10px;
+  font-size: 1.2rem;
+  width: 80%;
+  border-radius: 4px;
+  background-color: var(--input-background);
+}
+
+button {
+  background-color: var(--button-background);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: var(--button-hover-background);
+}
+
+.error-message {
+  color: var(--error-color);
+  font-size: 0.9rem;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Balance Container Styling */
+#balance-container {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: var(--container-background);
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Deposit Input Box Styling */
+.deposit-container {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--container-background);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.deposit-input-box h1 {
+  margin-bottom: 20px;
+}
+
+#deposit-amount {
+  padding: 10px;
+  font-size: 1.2rem;
+  width: 80%;
+  border-radius: 4px;
+  background-color: var(--input-background);
+}
+
+.withdraw-container {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--container-background);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.withdraw-input-box h1 {
+  margin-bottom: 20px;
+}
+
+#withdraw-amount {
+  padding: 10px;
+  font-size: 1.2rem;
+  width: 80%;
+  border-radius: 4px;
+  background-color: var(--input-background);
+}
+
+button {
+  background-color: var(--button-background);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: var(--button-hover-background);
+}
