@@ -17,22 +17,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const cancelWithdrawBtn = document.getElementById('cancel-withdraw-btn');
   const withdrawError = document.getElementById('withdraw-error');
 
-  // User balance (initialized to 0)
-  let userBalance = 0;
+  let userBalance = parseFloat(localStorage.getItem('userBalance')) || 0;
 
-  // Login Button - Show PIN input
   loginBtn?.addEventListener('click', () => {
     pinContainer.style.display = 'block';
   });
 
-  // Submit PIN button
   submitPinBtn?.addEventListener('click', () => {
     const pin = pinInput.value;
 
     if (pin === '2003') {
       pinContainer.style.display = 'none';
-      
-      // Update navbar with new buttons
       navbar.innerHTML = `
         <div class="left-side">
           <button class="nav-btn" id="balance-btn">Sąskaitos likutis</button>
@@ -41,8 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <button class="nav-btn" id="logout-btn">Atsijungti</button>
       `;
-
-      // Add event listeners for the new buttons
       const logoutBtn = document.getElementById('logout-btn');
       logoutBtn?.addEventListener('click', logout);
       
@@ -59,87 +52,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Logout function
   function logout() {
     navbar.innerHTML = `<button class="nav-btn" id="login-btn">Prisijungti</button>`;
     pinInput.value = '';
-    userBalance = 0;
-    balanceContainer.style.display = 'none'; // Hide balance after logout
+    balanceContainer.style.display = 'none';
 
-    // Re-add the login button and event listener after logout
     const newLoginBtn = document.getElementById('login-btn');
     newLoginBtn?.addEventListener('click', () => {
       pinContainer.style.display = 'block';
     });
 
-    // Hide all containers after logout
     depositContainer.style.display = 'none';
     withdrawContainer.style.display = 'none';
     balanceContainer.style.display = 'none';
   }
 
-  // Show balance when button is clicked
   function showBalance() {
     balanceContainer.style.display = 'block';
     balanceContainer.innerHTML = `<h2>Sąskaitos likutis: €${userBalance}</h2>`;
-    // Ensure that deposit and withdraw forms are hidden
     depositContainer.style.display = 'none';
     withdrawContainer.style.display = 'none';
   }
 
-  // Show deposit form when button is clicked
   function showDepositForm() {
     depositContainer.style.display = 'block';
-    // Ensure that balance and withdraw forms are hidden
     balanceContainer.style.display = 'none';
     withdrawContainer.style.display = 'none';
   }
 
-  // Show withdraw form when button is clicked
   function showWithdrawForm() {
     withdrawContainer.style.display = 'block';
-    // Ensure that balance and deposit forms are hidden
     balanceContainer.style.display = 'none';
     depositContainer.style.display = 'none';
   }
 
-  // Submit deposit functionality
   submitDepositBtn?.addEventListener('click', () => {
     const depositAmount = parseFloat(depositAmountInput.value);
-    
-    if (isNaN(depositAmount) || depositAmount <= 0) {
-      depositError.textContent = 'Prašome įvesti galiojančią sumą.';
+
+    if (!Number.isInteger(depositAmount) || isNaN(depositAmount) || depositAmount <= 0) {
+      depositError.textContent = 'Galima įdėti tik sveikąją sumą.';
     } else {
-      userBalance += depositAmount; // Add the deposit amount to the balance
-      depositAmountInput.value = ''; // Clear input
-      depositError.textContent = ''; // Clear any previous errors
-      depositContainer.style.display = 'none'; // Hide deposit form
+      userBalance += depositAmount;
+      localStorage.setItem('userBalance', userBalance);
+      depositAmountInput.value = '';
+      depositError.textContent = '';
+      depositContainer.style.display = 'none';
     }
   });
 
-  // Cancel deposit form
   cancelDepositBtn?.addEventListener('click', () => {
-    depositContainer.style.display = 'none'; // Hide deposit form if cancelled
+    depositContainer.style.display = 'none';
   });
 
-  // Submit withdraw functionality
   submitWithdrawBtn?.addEventListener('click', () => {
     const withdrawAmount = parseFloat(withdrawAmountInput.value);
 
-    if (isNaN(withdrawAmount) || withdrawAmount <= 0) {
-      withdrawError.textContent = 'Prašome įvesti galiojančią sumą.';
+    if (!Number.isInteger(withdrawAmount) || isNaN(withdrawAmount) || withdrawAmount <= 0) {
+      withdrawError.textContent = 'Galima išsiimti tik sveikąją sumą.';
     } else if (withdrawAmount > userBalance) {
       withdrawError.textContent = 'Nepakanka lėšų sąskaitoje.';
     } else {
-      userBalance -= withdrawAmount; // Subtract the withdraw amount from the balance
-      withdrawAmountInput.value = ''; // Clear input
-      withdrawError.textContent = ''; // Clear any previous errors
-      withdrawContainer.style.display = 'none'; // Hide withdraw form
+      userBalance -= withdrawAmount;
+      localStorage.setItem('userBalance', userBalance);
+      withdrawAmountInput.value = '';
+      withdrawError.textContent = '';
+      withdrawContainer.style.display = 'none';
     }
   });
 
-  // Cancel withdraw form
   cancelWithdrawBtn?.addEventListener('click', () => {
-    withdrawContainer.style.display = 'none'; // Hide withdraw form if cancelled
+    withdrawContainer.style.display = 'none';
   });
 });
